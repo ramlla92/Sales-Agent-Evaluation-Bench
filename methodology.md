@@ -89,6 +89,28 @@ These are written specifically to surface failure that automated generation may 
 - `30%` dev
 - `20%` held_out
 
+The split is applied after task generation, not during authoring. Each dataset source is first collected into an `unsplit` pool, then assigned to `train`, `dev`, and `held_out` only after contamination-sensitive grouping is complete.
+
+### Split implementation
+
+The current trace-derived partitioning uses family-level assignment rather than row-level random sampling.
+
+- First, every task receives a `family_id` in `metadata`.
+- For trace-derived tasks, the family groups together examples that share the same behavioral pattern rather than just the same surface phrasing.
+- The trace family definition includes:
+  - task type
+  - observed-to-expected action transition
+  - top failure tags
+  - AI maturity bucket
+  - segment-confidence bucket
+  - evidence-source label
+  - primary industry
+  - country
+  - honesty-flag bucket
+- The split script assigns whole families into `train`, `dev`, or `held_out` to reduce pattern leakage across partitions.
+
+This is stricter than ordinary random sampling. It means related traces do not get distributed across different splits just because the wording differs slightly. That matters here because the benchmark is small enough that repeated behavioral patterns would otherwise let the model learn family-specific templates.
+
 Held-out tasks remain sealed from training-time scripts. Public release of the sealed slice should happen only after final measurement and leaderboard publication.
 
 ## Rubric Dimensions
@@ -114,9 +136,26 @@ Record the final matrix in `inter_rater_agreement.md`.
 
 ## Contamination Protocol
 
+- family-first split assignment before any train/dev/held_out writeout
 - n-gram overlap check between held-out and non-held-out tasks
 - embedding similarity check using sentence embeddings; cosine similarity `> 0.85` is flagged for review
 - time-shift verification for public-signal tasks so dates and public evidence windows are documented
+
+The family-first rule is the primary contamination control. It blocks near-duplicates and patterned variants from being split across partitions, which is especially important for:
+
+- trace-derived tasks converted from the same workflow behavior
+- programmatic tasks created from the same parameterized scenario family
+- later LLM-synthesized tasks that may preserve latent structure even when the wording changes
+
+The practical order is:
+
+1. generate tasks into unsplit source pools
+2. assign `family_id` before any partitioning
+3. split by family, not by row
+4. run lexical and embedding-level overlap checks
+5. rewrite or remove flagged held-out cases before sealing
+
+This approach is designed to reduce both direct duplication and softer pattern-learning contamination, where the model does not memorize a sentence but still sees the same task family during training and evaluation.
 
 Held-out examples that fail any contamination threshold are removed or rewritten before sealing the split.
 

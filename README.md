@@ -1,33 +1,128 @@
 # Tenacious-Bench v0.1
 
-Tenacious-Bench v0.1 is a starter evaluation benchmark for a Tenacious-style B2B sales agent. It focuses on grounded outreach quality, segment fit, tone adherence, and simple machine-verifiable checks before any paid-model judging is added.
+Tenacious-Bench v0.1 is a custom benchmark for evaluating a Tenacious-style B2B sales agent. It is built around the actual Week 10 workflow failures rather than generic email quality, with emphasis on:
 
-This repo is designed for the Week 11 assignment:
+- signal grounding
+- unsupported claims
+- generic/template language
+- CTA quality
+- action correctness across `send`, `exploratory_send`, `abstain`, and `review`
+- segment and context fit
 
-- Build a custom benchmark with `200-300` tasks.
-- Keep `train/dev/held_out` partitions separate.
-- Start with a rule-based evaluator.
-- Add a small improvement component later, ideally a lightweight critic/judge.
+## Current Status
 
-## What is in this starter
+Target benchmark size:
 
-- `schema.json`: JSON schema for benchmark tasks
-- `scoring_evaluator.py`: runnable rule-based scorer
-- `generation_scripts/`: starter generation and contamination scripts
-- `tenacious_bench_v0.1/`: dataset partitions with example tasks
-- `methodology.md`, `datasheet.md`, `audit_memo.md`: report starters
-- `cost_log.csv`, `evidence_graph.json`: evidence and cost tracking starters
+- `200` total tasks
 
-## Recommended default path
+Built so far:
 
-Default recommendation: `Path B` (judge/critic).
+- `60` trace-derived tasks
+- `60` programmatic tasks
+- `120` total tasks currently authored
 
-Why:
+Still pending:
 
-- easiest to defend even if Week 10 artifacts are thin
-- production-relevant as a rejection or rollback layer
-- works well with mostly rule-based evaluation plus preference data later
-- cheaper and lower-risk than training a full generation adapter
+- multi-LLM synthesis slice
+- hand-authored adversarial slice
+
+## Repository Structure
+
+Core benchmark logic:
+
+- `schema.json`: compact task schema
+- `scoring_evaluator.py`: rule-based evaluator for benchmark tasks
+
+Generation pipeline:
+
+- `generation_scripts/convert_trace_workflows.py`: converts Week 10 workflow outputs into compact trace-derived tasks
+- `generation_scripts/assign_family_splits.py`: assigns family-based contamination-safe trace splits
+- `generation_scripts/generate_programmatic_tasks.py`: generates the balanced programmatic task pool
+
+Documentation:
+
+- `methodology.md`
+- `audit_memo.md`
+- `datasheet.md`
+- `docs/implementation_plan.md`
+- `docs/progress.md`
+- `cost_log.csv`
+
+Dataset artifacts:
+
+- `tenacious_bench_v0.1/trace_pool_unsplit.jsonl`
+- `tenacious_bench_v0.1/trace_pool_unsplit_summary.json`
+- `tenacious_bench_v0.1/programmatic_pool_unsplit.jsonl`
+- `tenacious_bench_v0.1/programmatic_pool_unsplit_summary.json`
+- `tenacious_bench_v0.1/splits_trace/train.jsonl`
+- `tenacious_bench_v0.1/splits_trace/dev.jsonl`
+- `tenacious_bench_v0.1/splits_trace/held_out.jsonl`
+- `tenacious_bench_v0.1/splits_trace_summary.json`
+
+## Benchmark Design
+
+Chosen path:
+
+- `Path B - judge/critic`
+
+Why this path:
+
+- the dominant Week 10 issue is not fluency
+- the main failure is weak or unsafe send decisions under low-confidence evidence
+- a critic is the most direct way to block low-confidence or poorly grounded outreach before send
+
+This decision is documented in more detail in `methodology.md` and `audit_memo.md`.
+
+## Dataset Construction
+
+Planned final composition:
+
+- `30%` trace-derived
+- `30%` programmatic
+- `25%` multi-LLM synthesis
+- `15%` hand-authored adversarial
+
+Implemented source modes:
+
+### Trace-derived
+
+- built from `60` Week 10 workflow outputs
+- preserves observed behavior and corrected expected behavior
+- current action mix: `33 abstain`, `27 exploratory_send`
+
+### Programmatic
+
+- built as `60` balanced tasks
+- action mix:
+  - `15 send`
+  - `15 exploratory_send`
+  - `15 abstain`
+  - `15 review`
+
+## Split and Contamination Strategy
+
+The current trace-derived split uses family-based assignment rather than row-level random splitting.
+
+Process:
+
+1. generate source tasks into `unsplit` pools
+2. assign `metadata.family_id`
+3. split by family, not by row
+4. run lexical and embedding-level contamination checks
+5. seal held-out only after review
+
+Current trace split:
+
+- `train`: `30`
+- `dev`: `18`
+- `held_out`: `12`
+
+Contamination controls:
+
+- family-first split assignment
+- n-gram overlap review
+- sentence-embedding similarity review with cosine similarity `> 0.85`
+- time-shift verification for public-signal cases
 
 ## Setup
 
@@ -35,54 +130,37 @@ Why:
 python -m venv .venv
 .venv\Scripts\activate
 python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-Python `3.11` is the target. The starter code uses only the standard library.
+Target Python version:
 
-## Score one task
+- `3.11`
+
+## Common Commands
+
+Generate the programmatic pool:
 
 ```bash
-python scoring_evaluator.py tenacious_bench_v0.1/dev/task_programmatic_001.json examples/candidate_output_good.txt
+python generation_scripts/generate_programmatic_tasks.py
 ```
 
-You can also score the task's own reference answer:
+Convert Week 10 traces into the compact trace pool:
 
 ```bash
-python scoring_evaluator.py tenacious_bench_v0.1/dev/task_programmatic_001.json --use-ground-truth
+python generation_scripts/convert_trace_workflows.py
 ```
 
-## Generate more template tasks
+Assign family-based trace splits:
 
 ```bash
-python generation_scripts/generate_programmatic_tasks.py --count 12 --split train --output-dir tenacious_bench_v0.1/train
+python generation_scripts/assign_family_splits.py
 ```
 
-## Run contamination checks
+## What Comes Next
 
-```bash
-python generation_scripts/contamination_check.py --train-dir tenacious_bench_v0.1/train --heldout-dir tenacious_bench_v0.1/held_out
-```
-
-## Suggested workflow
-
-1. Inventory Week 10 artifacts and map them to failure modes.
-2. Refine `schema.json` and the rubric dimensions.
-3. Expand programmatic and trace-derived tasks.
-4. Use the evaluator to filter low-quality synthetic tasks.
-5. Convert the train split into preference data for a small judge.
-
-## Current status
-
-- schema: starter complete
-- evaluator: runnable
-- example tasks: included
-- contamination script: included
-- training artifacts: placeholder only
-
-## Next
-
-- add real Week 10 traces
-- author `200-300` tasks
-- complete inter-rater agreement
-- prepare `Path B` preference pairs
-- train a lightweight critic with LoRA or a small classifier
+- build the adversarial/manual slice
+- build the multi-LLM synthesis slice
+- run contamination checks across all source modes together
+- finalize global `train/dev/held_out` composition for the full `200`-task benchmark
+- prepare preference pairs for critic training
