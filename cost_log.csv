@@ -1,1 +1,1 @@
-timestamp,bucket,purpose,tool_or_model,cost_usd,notes
+timestamp,stage,purpose,tool_or_model,units,cost_usd,notes

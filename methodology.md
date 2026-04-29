@@ -2,27 +2,86 @@
 
 ## Objective
 
-Build `Tenacious-Bench v0.1`, a custom benchmark for a Tenacious-style B2B sales agent, then train a small improvement component targeted at a specific failure mode.
+Build `Tenacious-Bench v0.1`, a custom benchmark for a Tenacious-style B2B sales agent, then train a small improvement component targeted at a specific failure mode observed in the Week 10 workflow outputs.
 
-## Path declaration
+## Path Declaration
 
-Recommended default path: `Path B - judge/critic`.
+Chosen path: `Path B - judge/critic`.
 
-Initial rationale:
+### Trace-grounded justification
 
-- Week 11 emphasizes benchmark quality more than heavy training.
-- A critic is deployable as a guardrail even if generation stays unchanged.
-- A critic can be trained from preference pairs derived from benchmark failures.
-- This path remains useful even if Week 10 traces are limited.
+Path B is chosen because the dominant Week 10 issue is not that the system cannot generate fluent outreach. It is that it still sends outreach when the evidence base is weak, contradictory, or too generic to justify automation. A critic is the most direct intervention for that failure because it can score or block low-confidence emails before they are sent.
 
-Replace this section with citations to at least `3` Week 10 trace IDs and `2+` papers.
+This choice is grounded in the Week 10 traces:
 
-## Dataset construction plan
+- `trace_id=3703cd92-c3f8-404d-abf0-97398c0133b6` (`Airtouch`): `email_sent=true`, `segment_confidence=0.41`, `ai_maturity=1`, `signal_grounding_score=0.5`, with honesty flags including `weak_hiring_velocity_signal` and `job_post_data_unavailable`. Despite weak evidence, the system still sent exploratory outreach.
+- `trace_id=932fe046-f65c-41e3-92a9-f85c297618e5` (`WISE`): `email_sent=true`, `segment_confidence=0.41`, `factual_accuracy_score=0.25`, and `honesty_flags` include `layoff_overrides_funding`. The email still led with a growth/funding framing, which is exactly the kind of mismatch a critic should reject.
+- `trace_id=13664253-82cb-4831-8360-cf11a9e752f0` (`Pascal Biosciences`): `email_sent=true`, `segment_confidence=0.41`, `factual_accuracy_score=0.4`, with weak-signal flags present. The system produced plausible outreach, but not sufficiently safe outreach.
+- `trace_id=9bef7093-6237-448f-b2d8-3f1917a4627c` (`nokyooz`): `email_sent=true`, `segment_confidence=0.41`, and the body is highly generic, with `email_quality_score=0.475`. This supports a critic path because the problem is weak discrimination between send-worthy and low-value outputs.
+- `trace_id=5f6d37a8-3a7c-45d1-8b72-02a319dac8c9` (`Productboard`): even a stronger case with `ai_maturity=2` and `signal_grounding_score=0.9` still produced generic language like "explore potential synergies," which indicates the system needs a quality gate in addition to generation.
+
+This path is also consistent with the Week 11 brief: the benchmark is the primary artifact, and a small deployable critic aligns well with lightweight training and production relevance.
+
+## Paper Grounding
+
+The methodology follows the judge-centric direction described in:
+
+- *A Survey on LLM-as-a-Judge* for evaluator design, calibration, and rubric structure.
+- *Prometheus 2* for training a small open evaluator specialized in model assessment.
+- *Preference Leakage: A Contamination Problem in LLM-as-a-Judge* for separating generator and judge model families.
+- *SimPO* or *ORPO* as the preferred lightweight training objective for the critic if we move beyond rule-only scoring.
+
+## Failure-Mode Linkage
+
+Rubric dimensions are derived directly from the Week 10 taxonomy and observed failure patterns in `week_10_artifacts/failure_taxonomy_v2.md`.
+
+- `signal grounding` -> `T-01` Signal Grounding Failure
+- `hallucination / unsupported claims` -> `T-02` Fact Hallucination / Unsupported Claims
+- `generic output / template language` -> `T-03` Generic Output / Template Language
+- `CTA effectiveness` -> `T-04` CTA Effectiveness Failure
+- `send/no-send confidence match` -> `T-05` Under-Blocking (Confidence Mismatch)
+- `segment fit / context fit` -> `T-06` Segment / Context Mismatch
+
+Observed linkage from the traces:
+
+- `T-01` appears in low-evidence emails such as `Airtouch`, where grounding is weak and specificity is low.
+- `T-02` appears in outputs such as `WISE`, where the framing does not safely reflect the evidence profile.
+- `T-03` appears in `nokyooz` and `Productboard`, where reusable template phrasing dominates the message.
+- `T-04` appears in weak close language such as "happy to share" or soft, non-time-bound asks.
+- `T-05` is a major driver of the path choice because multiple traces send outreach despite `segment_confidence < 0.5`.
+- `T-06` remains important because Week 10 already documented entity/context misattribution risk in the taxonomy.
+
+## Dataset Construction Plan
+
+Target composition:
 
 - `30%` trace-derived tasks
 - `30%` programmatic tasks
 - `25%` multi-LLM synthesis tasks
 - `15%` hand-authored adversarial tasks
+
+### Trace-derived tasks
+
+These are created from real Week 10 workflow outputs, especially cases where the brief, confidence values, honesty flags, and final email disagree. They provide the highest-fidelity examples of Tenacious-specific failure because they capture actual system behavior under the Week 10 routing logic.
+
+### Programmatic tasks
+
+Programmatic tasks are generated by varying structured inputs such as hiring signal strength, AI maturity, segment confidence, industry segment, bench-fit status, and public evidence completeness. This lets one failure pattern expand into many controlled cases without drifting away from the underlying rubric.
+
+Examples:
+
+- vary strong vs weak hiring signal with the same segment
+- vary `ai_maturity=1` vs `ai_maturity=2`
+- vary known bench fit vs unknown bench fit
+- vary clean evidence vs sparse public evidence
+
+### Multi-LLM synthesis tasks
+
+These produce harder edge cases anchored to the Week 10 failure taxonomy. A stronger model can author seed cases and a cheaper model can create controlled variants, but the generator and judge must not be the same model family.
+
+### Hand-authored adversarial tasks
+
+These are written specifically to surface failure that automated generation may smooth over. Adversarial cases include conflicting signals, misleading evidence, weak AI hints paired with strong growth language, layoff/funding contradictions, and cases where a generic CTA sounds polished but should still be blocked.
 
 ## Partitioning
 
@@ -30,19 +89,22 @@ Replace this section with citations to at least `3` Week 10 trace IDs and `2+` p
 - `30%` dev
 - `20%` held_out
 
-Held-out tasks should remain sealed from training-time scripts and future public release should be delayed until after final measurement.
+Held-out tasks remain sealed from training-time scripts. Public release of the sealed slice should happen only after final measurement and leaderboard publication.
 
-## Rubric dimensions
+## Rubric Dimensions
 
 - signal grounding
 - Tenacious tone/style
-- banned phrases
-- calendar CTA
+- banned phrases / template language
+- CTA effectiveness
 - hallucination / unsupported claims
 - segment fit
+- send/no-send confidence match
 - overall score
 
-## Inter-rater agreement protocol
+The first six dimensions score output quality. The `send/no-send confidence match` dimension scores whether the workflow should have automated outreach at all.
+
+## Inter-Rater Agreement Protocol
 
 - label `30` tasks
 - relabel the same `30` tasks after `24` hours
@@ -50,24 +112,30 @@ Held-out tasks should remain sealed from training-time scripts and future public
 
 Record the final matrix in `inter_rater_agreement.md`.
 
-## Contamination protocol
+## Contamination Protocol
 
-- n-gram overlap check
-- embedding similarity check placeholder
-- time-shift verification for public-signal tasks
+- n-gram overlap check between held-out and non-held-out tasks
+- embedding similarity check using sentence embeddings; cosine similarity `> 0.85` is flagged for review
+- time-shift verification for public-signal tasks so dates and public evidence windows are documented
 
-## Training plan
+Held-out examples that fail any contamination threshold are removed or rewritten before sealing the split.
+
+## Training Plan
 
 Phase 1 uses only rule-based scoring.  
-Phase 2 adds a small learned critic using chosen/rejected pairs.
+Phase 2 adds a small learned critic using chosen/rejected pairs.  
+The critic is trained on chosen/rejected email pairs derived from benchmark failures, where rejected outputs come from weak Week 10 behaviors and chosen outputs are corrected versions that pass the evaluator.
 
-## Cost discipline
+## Cost Discipline
 
-- avoid paid APIs in starter version
+- avoid paid APIs in the starter version where possible
+- use dev-tier models for bulk synthesis and filtering
+- reserve eval-tier judging for sealed-slice evaluation only
 - log every future API or GPU charge in `cost_log.csv`
 
-## Publication notes
+## Publication Notes
 
 - dataset target: Hugging Face
 - likely license: `CC-BY-4.0`
 - model artifact target: LoRA adapter or small critic
+- methodology must keep trace IDs, taxonomy links, and contamination rules explicit so public artifacts are auditable
