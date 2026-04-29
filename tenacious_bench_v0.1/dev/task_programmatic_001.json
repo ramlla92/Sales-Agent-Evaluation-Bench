@@ -1,0 +1,68 @@
+{
+  "task_id": "task_programmatic_001",
+  "split": "dev",
+  "source_mode": "programmatic",
+  "difficulty": "medium",
+  "prospect_context": {
+    "company_name": "Aster Cloud",
+    "segment": "SMB SaaS",
+    "company_size": "51-200",
+    "industry": "software",
+    "hq_region": "US",
+    "tech_stack": ["HubSpot", "Salesforce"],
+    "pain_points": ["manual prospect research", "ramp consistency", "handoff delays"]
+  },
+  "hiring_signal_brief": {
+    "signal_type": "hiring_spike",
+    "signal_summary": "Aster Cloud opened 4 SDR roles and 2 AE roles in the last month.",
+    "signal_date": "2026-04-09",
+    "allowed_grounding_points": [
+      "Aster Cloud opened 4 SDR roles and 2 AE roles in the last month.",
+      "The team is expanding GTM hiring.",
+      "Fast hiring often creates ramp consistency pressure."
+    ],
+    "disallowed_claims": [
+      "we already know your funnel conversion rates",
+      "we worked with your team last quarter"
+    ]
+  },
+  "bench_summary": {
+    "core_value_props": [
+      "flexible bench support",
+      "faster rep ramp without permanent over-hiring"
+    ],
+    "proof_points": ["sales execution support", "bench flexibility"],
+    "banned_phrases": ["best-in-class", "10x your pipeline", "revolutionary platform"],
+    "tone_markers": ["concise", "grounded", "respectful", "specific", "low-hype"],
+    "calendar_cta_examples": [
+      "Open to a 15-minute intro next week?",
+      "Happy to send a calendar link if useful."
+    ]
+  },
+  "prior_thread": [],
+  "instructions_to_agent": "Write a short outbound email grounded in the hiring signal. Keep it concrete, non-hype, and end with a calendar CTA.",
+  "ground_truth": {
+    "reference_output": "Hi Aster Cloud team — I noticed you opened 4 SDR roles and 2 AE roles recently. When GTM hiring moves that fast, teams often feel pressure on ramp consistency and prospect research capacity. Tenacious helps add bench support without forcing a long-term headcount decision. If helpful, I can send a calendar link for a brief 15-minute intro next week.",
+    "must_include": [
+      "opened 4 SDR roles and 2 AE roles",
+      "ramp consistency",
+      "calendar"
+    ],
+    "must_avoid": ["best-in-class", "10x your pipeline", "we worked with your team last quarter"],
+    "target_segment": "SMB SaaS"
+  },
+  "rubric": {
+    "signal_grounding": "Reference at least one allowed grounding point from the brief.",
+    "tenacious_tone_style": "Stay concise, grounded, respectful, and low-hype.",
+    "banned_phrases": "Avoid all banned phrases.",
+    "calendar_cta_presence": "Include a calendar-oriented CTA.",
+    "hallucination_unsupported_claims": "Do not make unsupported business claims.",
+    "segment_fit": "Fit the SMB SaaS context and pains.",
+    "overall_score": "Weighted average of the six dimensions."
+  },
+  "metadata": {
+    "version": "0.1",
+    "authoring_notes": "Starter example of a template-generated task.",
+    "tags": ["programmatic", "smb", "hiring_spike"]
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tenacious-Bench Task Schema v0.1",
+  "type": "object",
+  "required": [
+    "task_id",
+    "split",
+    "source_mode",
+    "difficulty",
+    "prospect_context",
+    "hiring_signal_brief",
+    "bench_summary",
+    "prior_thread",
+    "instructions_to_agent",
+    "ground_truth",
+    "rubric",
+    "metadata"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "split": {
+      "type": "string",
+      "enum": ["train", "dev", "held_out"]
+    },
+    "source_mode": {
+      "type": "string",
+      "enum": ["trace_derived", "programmatic", "multi_llm_synthesis", "adversarial"]
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "prospect_context": {
+      "type": "object",
+      "required": ["company_name", "segment", "company_size", "industry"],
+      "properties": {
+        "company_name": { "type": "string" },
+        "segment": { "type": "string" },
+        "company_size": { "type": "string" },
+        "industry": { "type": "string" },
+        "hq_region": { "type": "string" },
+        "tech_stack": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "pain_points": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "hiring_signal_brief": {
+      "type": "object",
+      "required": ["signal_type", "signal_summary", "allowed_grounding_points"],
+      "properties": {
+        "signal_type": { "type": "string" },
+        "signal_summary": { "type": "string" },
+        "signal_date": { "type": "string" },
+        "allowed_grounding_points": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "disallowed_claims": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "bench_summary": {
+      "type": "object",
+      "required": ["core_value_props", "proof_points", "banned_phrases", "tone_markers"],
+      "properties": {
+        "core_value_props": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "proof_points": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "banned_phrases": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tone_markers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "calendar_cta_examples": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "prior_thread": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["speaker", "message"],
+        "properties": {
+          "speaker": { "type": "string" },
+          "message": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "instructions_to_agent": {
+      "type": "string"
+    },
+    "ground_truth": {
+      "type": "object",
+      "required": ["reference_output", "must_include", "must_avoid", "target_segment"],
+      "properties": {
+        "reference_output": { "type": "string" },
+        "must_include": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "must_avoid": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "target_segment": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "rubric": {
+      "type": "object",
+      "required": [
+        "signal_grounding",
+        "tenacious_tone_style",
+        "banned_phrases",
+        "calendar_cta_presence",
+        "hallucination_unsupported_claims",
+        "segment_fit",
+        "overall_score"
+      ],
+      "properties": {
+        "signal_grounding": { "type": "string" },
+        "tenacious_tone_style": { "type": "string" },
+        "banned_phrases": { "type": "string" },
+        "calendar_cta_presence": { "type": "string" },
+        "hallucination_unsupported_claims": { "type": "string" },
+        "segment_fit": { "type": "string" },
+        "overall_score": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["version", "authoring_notes"],
+      "properties": {
+        "version": { "type": "string" },
+        "authoring_notes": { "type": "string" },
+        "trace_id": { "type": "string" },
+        "probe_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

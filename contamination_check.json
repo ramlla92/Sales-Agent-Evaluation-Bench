@@ -1,0 +1,18 @@
+{
+  "summary": {
+    "train_count": 4,
+    "held_out_count": 1,
+    "note": "Embedding similarity is a bag-of-words placeholder. Replace with a real embedding model later."
+  },
+  "findings": [
+    {
+      "held_out_task_id": "task_adversarial_001",
+      "closest_train_task_id": "task_programmatic_002",
+      "max_8gram_overlap": 0,
+      "embedding_similarity_placeholder": 0.3245,
+      "passes_ngram_rule": true,
+      "passes_embedding_rule": true,
+      "time_shift_verified": false
+    }
+  ]
+}

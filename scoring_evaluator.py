@@ -1,0 +1,236 @@
+import argparse
+import json
+import re
+from pathlib import Path
+from typing import Any
+
+
+def load_task(task_path: str) -> dict[str, Any]:
+    with open(task_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def load_candidate_text(candidate_path: str) -> str:
+    with open(candidate_path, "r", encoding="utf-8") as f:
+        return f.read().strip()
+
+
+def normalize(text: str) -> str:
+    return re.sub(r"\s+", " ", text.lower()).strip()
+
+
+def content_tokens(text: str) -> set[str]:
+    stopwords = {
+        "a", "an", "the", "and", "or", "to", "of", "in", "on", "for", "with", "at",
+        "by", "if", "it", "is", "are", "be", "as", "that", "this", "your", "you",
+        "we", "our", "i", "can", "will", "when", "while", "into", "from"
+    }
+    tokens = re.findall(r"[a-z0-9]+", normalize(text))
+    return {token for token in tokens if token not in stopwords and len(token) > 2}
+
+
+def contains_any(text: str, phrases: list[str]) -> list[str]:
+    normalized = normalize(text)
+    return [phrase for phrase in phrases if normalize(phrase) in normalized]
+
+
+def token_overlap_score(text: str, phrases: list[str]) -> tuple[int, list[str]]:
+    normalized = normalize(text)
+    matched = [phrase for phrase in phrases if normalize(phrase) in normalized]
+    if not phrases:
+        return 0, []
+    return len(matched), matched
+
+
+def score_signal_grounding(task: dict[str, Any], candidate: str) -> tuple[int, dict[str, Any]]:
+    allowed_points = task["hiring_signal_brief"].get("allowed_grounding_points", [])
+    candidate_tokens = content_tokens(candidate)
+    exact_matches = []
+    fuzzy_matches = []
+
+    for point in allowed_points:
+        point_norm = normalize(point)
+        if point_norm in normalize(candidate):
+            exact_matches.append(point)
+            continue
+
+        point_tokens = content_tokens(point)
+        if not point_tokens:
+            continue
+        overlap_ratio = len(candidate_tokens.intersection(point_tokens)) / len(point_tokens)
+        if overlap_ratio >= 0.4:
+            fuzzy_matches.append(point)
+
+    total_matches = len(exact_matches) + len(fuzzy_matches)
+    details = {
+        "exact_grounding_matches": exact_matches,
+        "fuzzy_grounding_matches": fuzzy_matches
+    }
+    if total_matches >= 2:
+        return 5, details
+    if total_matches == 1:
+        return 3, details
+    return 0, details
+
+
+def score_tone(task: dict[str, Any], candidate: str) -> tuple[int, dict[str, Any]]:
+    tone_markers = task["bench_summary"].get("tone_markers", [])
+    candidate_norm = normalize(candidate)
+    hits = 0
+
+    marker_keywords = {
+        "concise": ["brief", "quick", "short", "concise"],
+        "grounded": ["noticed", "saw", "based on", "from your", "signal"],
+        "respectful": ["if helpful", "open to", "worth a look", "happy to", "no worries"],
+        "specific": ["team", "hiring", "bench", "ramp", "pipeline"],
+        "low-hype": ["not a silver bullet", "no pressure", "practical", "measured"]
+    }
+
+    for marker in tone_markers:
+        options = marker_keywords.get(marker.lower(), [marker])
+        if any(option in candidate_norm for option in options):
+            hits += 1
+
+    if hits >= 4:
+        return 5, {"tone_marker_hits": hits, "tone_markers": tone_markers}
+    if hits >= 2:
+        return 3, {"tone_marker_hits": hits, "tone_markers": tone_markers}
+    return 1, {"tone_marker_hits": hits, "tone_markers": tone_markers}
+
+
+def score_banned_phrases(task: dict[str, Any], candidate: str) -> tuple[int, dict[str, Any]]:
+    banned = task["bench_summary"].get("banned_phrases", [])
+    matched = contains_any(candidate, banned)
+    if not matched:
+        return 5, {"matched_banned_phrases": []}
+    if len(matched) == 1:
+        return 2, {"matched_banned_phrases": matched}
+    return 0, {"matched_banned_phrases": matched}
+
+
+def score_calendar_cta(candidate: str) -> tuple[int, dict[str, Any]]:
+    cta_patterns = [
+        r"calendar",
+        r"book time",
+        r"pick a time",
+        r"schedule",
+        r"15[- ]?min",
+        r"20[- ]?min",
+        r"next week",
+        r"link"
+    ]
+    hits = [pattern for pattern in cta_patterns if re.search(pattern, normalize(candidate))]
+    if len(hits) >= 2:
+        return 5, {"cta_evidence": hits}
+    if len(hits) == 1:
+        return 3, {"cta_evidence": hits}
+    return 0, {"cta_evidence": []}
+
+
+def score_hallucination(task: dict[str, Any], candidate: str) -> tuple[int, dict[str, Any]]:
+    disallowed = task["hiring_signal_brief"].get("disallowed_claims", [])
+    must_avoid = task["ground_truth"].get("must_avoid", [])
+    bad_matches = contains_any(candidate, disallowed + must_avoid)
+    unsupported_patterns = [
+        r"\bguarantee\b",
+        r"\b100%\b",
+        r"\bdouble your\b",
+        r"\btripled\b",
+        r"\bwe already know\b",
+        r"\bdefinitely\b"
+    ]
+    pattern_hits = [pattern for pattern in unsupported_patterns if re.search(pattern, normalize(candidate))]
+    if not bad_matches and not pattern_hits:
+        return 5, {"matched_unsupported_claims": [], "pattern_hits": []}
+    if len(bad_matches) + len(pattern_hits) == 1:
+        return 2, {"matched_unsupported_claims": bad_matches, "pattern_hits": pattern_hits}
+    return 0, {"matched_unsupported_claims": bad_matches, "pattern_hits": pattern_hits}
+
+
+def score_segment_fit(task: dict[str, Any], candidate: str) -> tuple[int, dict[str, Any]]:
+    target_segment = task["ground_truth"].get("target_segment", "")
+    segment_terms = [target_segment]
+    segment_terms.extend(task["prospect_context"].get("pain_points", []))
+    segment_terms.extend(task["prospect_context"].get("tech_stack", []))
+    count, matched = token_overlap_score(candidate, [term for term in segment_terms if term])
+    if count >= 2:
+        return 5, {"matched_segment_terms": matched}
+    if count == 1:
+        return 3, {"matched_segment_terms": matched}
+    return 1, {"matched_segment_terms": matched}
+
+
+def compute_overall(component_scores: dict[str, int]) -> float:
+    weights = {
+        "signal_grounding": 0.25,
+        "tenacious_tone_style": 0.20,
+        "banned_phrases": 0.15,
+        "calendar_cta_presence": 0.15,
+        "hallucination_unsupported_claims": 0.15,
+        "segment_fit": 0.10,
+    }
+    total = 0.0
+    for key, weight in weights.items():
+        total += component_scores[key] * weight
+    return round(total, 2)
+
+
+def evaluate(task: dict[str, Any], candidate: str) -> dict[str, Any]:
+    signal_score, signal_info = score_signal_grounding(task, candidate)
+    tone_score, tone_info = score_tone(task, candidate)
+    banned_score, banned_info = score_banned_phrases(task, candidate)
+    cta_score, cta_info = score_calendar_cta(candidate)
+    hallucination_score, hallucination_info = score_hallucination(task, candidate)
+    segment_score, segment_info = score_segment_fit(task, candidate)
+
+    component_scores = {
+        "signal_grounding": signal_score,
+        "tenacious_tone_style": tone_score,
+        "banned_phrases": banned_score,
+        "calendar_cta_presence": cta_score,
+        "hallucination_unsupported_claims": hallucination_score,
+        "segment_fit": segment_score,
+    }
+    overall = compute_overall(component_scores)
+
+    return {
+        "task_id": task["task_id"],
+        "component_scores": component_scores,
+        "overall_score": overall,
+        "details": {
+            "signal_grounding": signal_info,
+            "tenacious_tone_style": tone_info,
+            "banned_phrases": banned_info,
+            "calendar_cta_presence": cta_info,
+            "hallucination_unsupported_claims": hallucination_info,
+            "segment_fit": segment_info,
+        },
+        "hooks": {
+            "llm_judge_ready": True,
+            "suggested_future_hook": "Replace or augment tone and hallucination heuristics with an LLM judge."
+        }
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Score a Tenacious-Bench task against a candidate output.")
+    parser.add_argument("task_json", help="Path to a task JSON file.")
+    parser.add_argument("candidate_output", nargs="?", help="Path to a candidate output text file.")
+    parser.add_argument("--use-ground-truth", action="store_true", help="Score the task's reference_output instead of a file.")
+    args = parser.parse_args()
+
+    task = load_task(args.task_json)
+
+    if args.use_ground_truth:
+        candidate = task["ground_truth"]["reference_output"]
+    else:
+        if not args.candidate_output:
+            raise SystemExit("Provide candidate_output or use --use-ground-truth")
+        candidate = load_candidate_text(args.candidate_output)
+
+    result = evaluate(task, candidate)
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()

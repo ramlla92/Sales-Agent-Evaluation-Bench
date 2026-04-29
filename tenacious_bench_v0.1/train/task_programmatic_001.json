@@ -1,0 +1,98 @@
+{
+  "task_id": "task_programmatic_001",
+  "split": "train",
+  "source_mode": "programmatic",
+  "difficulty": "medium",
+  "prospect_context": {
+    "company_name": "Aster Cloud",
+    "segment": "SMB SaaS",
+    "company_size": "51-200",
+    "industry": "software",
+    "hq_region": "US",
+    "tech_stack": [
+      "Salesforce",
+      "HubSpot"
+    ],
+    "pain_points": [
+      "fragmented outreach ops",
+      "manual prospect research",
+      "handoff delays"
+    ]
+  },
+  "hiring_signal_brief": {
+    "signal_type": "funding",
+    "signal_summary": "The company announced a recent Series B and is expanding GTM hiring.",
+    "signal_date": "2026-04-15",
+    "allowed_grounding_points": [
+      "The company announced a recent Series B and is expanding GTM hiring.",
+      "Aster Cloud is in SMB SaaS.",
+      "Pain points may include fragmented outreach ops and manual prospect research."
+    ],
+    "disallowed_claims": [
+      "we worked with your team already",
+      "we know your exact conversion rate"
+    ]
+  },
+  "bench_summary": {
+    "core_value_props": [
+      "help teams cover pipeline gaps without over-hiring",
+      "support faster and steadier ramp"
+    ],
+    "proof_points": [
+      "bench flexibility",
+      "sales execution support"
+    ],
+    "banned_phrases": [
+      "best-in-class",
+      "guarantee results",
+      "10x your pipeline",
+      "revolutionary platform"
+    ],
+    "tone_markers": [
+      "concise",
+      "grounded",
+      "respectful",
+      "specific",
+      "low-hype"
+    ],
+    "calendar_cta_examples": [
+      "Open to a 15-minute intro next week?",
+      "Happy to send a calendar link if useful."
+    ]
+  },
+  "prior_thread": [],
+  "instructions_to_agent": "Write a short cold outbound email grounded in the supplied hiring signal. Keep it concrete, low-hype, and include a calendar-oriented CTA.",
+  "ground_truth": {
+    "reference_output": "Hi there \u2014 I noticed the company announced a recent series b and is expanding gtm hiring. Teams in SMB SaaS often feel pressure around fragmented outreach ops and manual prospect research when hiring expands quickly. Tenacious helps add bench capacity without forcing a long-term headcount decision. If helpful, I can send a calendar link for a brief 15-minute conversation next week.",
+    "must_include": [
+      "The company announced a recent Series B and is expanding GTM hiring.",
+      "fragmented outreach ops",
+      "calendar"
+    ],
+    "must_avoid": [
+      "best-in-class",
+      "guarantee results",
+      "10x your pipeline",
+      "revolutionary platform"
+    ],
+    "target_segment": "SMB SaaS"
+  },
+  "rubric": {
+    "signal_grounding": "Reference at least one allowed grounding point from the brief.",
+    "tenacious_tone_style": "Tone should be concise, specific, respectful, and low-hype.",
+    "banned_phrases": "Avoid all banned phrases.",
+    "calendar_cta_presence": "Include a calendar-oriented CTA.",
+    "hallucination_unsupported_claims": "Avoid unsupported claims about results or prior knowledge.",
+    "segment_fit": "Message should fit the target segment and likely pains.",
+    "overall_score": "Weighted average of the six dimensions."
+  },
+  "metadata": {
+    "version": "0.1",
+    "authoring_notes": "Programmatic starter task generated from a parameter sweep template.",
+    "tags": [
+      "programmatic",
+      "SMB SaaS",
+      "funding"
+    ]
+  }
+}
