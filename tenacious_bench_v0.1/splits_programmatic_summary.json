@@ -1,0 +1,79 @@
+{
+  "group_field": "template_family_id",
+  "targets": {
+    "train": 30,
+    "dev": 18,
+    "held_out": 12
+  },
+  "actual_counts": {
+    "train": 30,
+    "dev": 20,
+    "held_out": 10
+  },
+  "splits": {
+    "train": {
+      "count": 30,
+      "actions": {
+        "abstain": 10,
+        "exploratory_send": 5,
+        "review": 5,
+        "send": 10
+      },
+      "failure_tag_counts": {
+        "T-01": 10,
+        "T-02": 15,
+        "T-03": 5,
+        "T-04": 5,
+        "T-05": 15,
+        "T-06": 5,
+        "T-07": 5
+      },
+      "family_count": 6
+    },
+    "dev": {
+      "count": 20,
+      "actions": {
+        "abstain": 5,
+        "exploratory_send": 5,
+        "review": 5,
+        "send": 5
+      },
+      "failure_tag_counts": {
+        "T-01": 10,
+        "T-02": 10,
+        "T-04": 5,
+        "T-05": 10,
+        "T-06": 5
+      },
+      "family_count": 4
+    },
+    "held_out": {
+      "count": 10,
+      "actions": {
+        "exploratory_send": 5,
+        "review": 5
+      },
+      "failure_tag_counts": {
+        "T-01": 5,
+        "T-02": 5,
+        "T-05": 5,
+        "T-07": 5
+      },
+      "family_count": 2
+    }
+  },
+  "family_assignments": {
+    "abstain_context_mismatch": "train",
+    "abstain_missing_evidence": "dev",
+    "abstain_weak_signal": "train",
+    "exploratory_ai_hint": "dev",
+    "exploratory_ops_strain": "held_out",
+    "exploratory_sparse_signal": "train",
+    "review_bench_unknown": "held_out",
+    "review_competitor_gap_unknown": "train",
+    "review_signal_conflict": "dev",
+    "send_bench_fit_clear": "train",
+    "send_hiring_spike_grounded": "dev",
+    "send_market_entry_specific": "train"
+  }
+}

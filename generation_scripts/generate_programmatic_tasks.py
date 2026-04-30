@@ -258,6 +258,10 @@ def build_family_id(company: dict, signal: dict) -> str:
     return f"fam_programmatic_{segment}_{signal['name']}_{signal['action']}"
 
 
+def build_template_family_id(signal: dict) -> str:
+    return signal["name"]
+
+
 def expected_output(company: dict, signal: dict) -> dict[str, str]:
     if signal["action"] == "abstain":
         return {
@@ -286,6 +290,7 @@ def expected_output(company: dict, signal: dict) -> dict[str, str]:
 
 def build_task(index: int, company: dict, signal: dict) -> dict:
     action = signal["action"]
+    template_family_id = build_template_family_id(signal)
     return {
         "task_id": f"tb_prog_{index:04d}",
         "split": "unsplit",
@@ -335,6 +340,7 @@ def build_task(index: int, company: dict, signal: dict) -> dict:
             "version": "0.3",
             "source_notes": "Programmatic task generated from a structured parameter sweep.",
             "family_id": build_family_id(company, signal),
+            "template_family_id": template_family_id,
             "authoring_revision": "programmatic_generation_v1",
             "tags": ["programmatic", company["segment"], signal["name"], action],
         },
@@ -344,15 +350,24 @@ def build_task(index: int, company: dict, signal: dict) -> dict:
 def summarize(tasks: list[dict]) -> dict:
     actions = {}
     families = {}
+    template_families = {}
     for task in tasks:
         action = task["expected_behavior"]["action"]
         actions[action] = actions.get(action, 0) + 1
         family_id = task["metadata"]["family_id"]
         families[family_id] = families.get(family_id, 0) + 1
+        template_family_id = task["metadata"]["template_family_id"]
+        template_families[template_family_id] = template_families.get(template_family_id, 0) + 1
     return {
         "task_count": len(tasks),
+        "grouping_fields": {
+            "detailed_family_field": "family_id",
+            "template_family_field": "template_family_id",
+            "split_family_field": "template_family_id",
+        },
         "actions": dict(sorted(actions.items())),
-        "families": dict(sorted(families.items())),
+        "detailed_family_count": len(families),
+        "template_families": dict(sorted(template_families.items())),
     }
 
 
