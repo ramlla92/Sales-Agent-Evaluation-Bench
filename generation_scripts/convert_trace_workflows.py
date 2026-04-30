@@ -180,6 +180,76 @@ def infer_observed_action(record: dict[str, Any]) -> str:
     return "send"
 
 
+def infer_template_family_id(record: dict[str, Any], expected_action: str, failure_tags: list[str], observed_action: str) -> str:
+    tags = set(failure_tags)
+    email_body = extract_email(record)["email_body"].lower()
+    honesty_flags = set(record.get("honesty_flags") or [])
+    segment_confidence = float(record.get("segment_confidence") or 0.0)
+    company_name = (record.get("company_name") or "").lower()
+    if expected_action == "abstain":
+        if "T-06" in tags:
+            return "abstain_context_mismatch"
+        if "layoff_overrides_funding" in honesty_flags:
+            return "review_signal_conflict"
+        if "T-01" in tags and "T-05" in tags:
+            return "abstain_missing_evidence"
+        return "abstain_weak_signal"
+    if expected_action == "review":
+        if "T-07" in tags:
+            return "review_bench_unknown"
+        if "T-06" in tags or "layoff_overrides_funding" in honesty_flags:
+            return "review_signal_conflict"
+        return "review_competitor_gap_unknown"
+    if expected_action == "send":
+        if "T-03" in tags or "synergies" in email_body or "explore potential" in email_body:
+            return "send_grounded_but_generic"
+        if "market" in email_body or "expansion" in email_body:
+            return "send_market_signal"
+        return "send_grounded_signal"
+    if expected_action == "exploratory_send":
+        if "layoff_overrides_funding" in honesty_flags or "bench fit" in email_body or "unknown" in email_body:
+            return "review_signal_conflict"
+        if "T-03" in tags:
+            return "exploratory_generic_output"
+        if "T-04" in tags:
+            return "exploratory_cta_weak"
+        if "T-06" in tags or company_name == "wise":
+            return "review_signal_conflict"
+        if segment_confidence >= 0.55 and observed_action == "send":
+            return "send_grounded_but_generic"
+        if "T-05" in tags:
+            return "exploratory_sparse_signal"
+        if "T-02" in tags:
+            return "exploratory_ai_hint"
+        return "exploratory_ops_strain"
+    return "send_grounded_signal"
+
+
+def infer_trace_cluster_id(
+    record: dict[str, Any],
+    task_type: str,
+    observed_action: str,
+    expected_action: str,
+    failure_tags: list[str],
+    template_family_id: str,
+) -> str:
+    ai_maturity = record.get("ai_maturity", 0)
+    segment_confidence = record.get("segment_confidence", 0)
+    if segment_confidence < 0.5:
+        confidence_bucket = "low"
+    elif segment_confidence < 0.75:
+        confidence_bucket = "mid"
+    else:
+        confidence_bucket = "high"
+    primary_tags = "_".join(failure_tags[:2]) if failure_tags else "none"
+    source_label, _, _ = primary_firmographic_info(record)
+    hf_bucket = honesty_bucket(record)
+    return (
+        f"trace_{template_family_id}_{task_type}_{observed_action}_to_{expected_action}"
+        f"_{primary_tags}_ai{ai_maturity}_{confidence_bucket}_{source_label}_{hf_bucket}"
+    )
+
+
 def infer_family_id(
     record: dict[str, Any],
     task_type: str,
@@ -224,6 +294,11 @@ def build_expected_output(action: str, observed_output: dict[str, str], company_
         return {
             "email_subject": "",
             "email_body": f"Insufficient signal to send outreach for {company_name}. Route to manual review.",
+        }
+    if action == "review":
+        return {
+            "email_subject": "",
+            "email_body": f"Manual review required before outreach for {company_name}. The signal is promising but not safe enough to automate yet.",
         }
     return observed_output
 
@@ -294,15 +369,17 @@ def build_expected_behavior(
     must_include = []
     if evidence:
         must_include.append(evidence[0])
-    if expected_action != "abstain":
+    if expected_action in {"send", "exploratory_send"}:
         must_include.append("calendar")
+    if expected_action == "review":
+        must_include.append("manual review")
 
     behavior = {
         "action": expected_action,
         "observed_action": observed_action,
         "must_include": must_include,
         "must_avoid": GENERIC_BANNED_PHRASES + ["unsupported competitor gap"],
-        "cta_required": expected_action != "abstain",
+        "cta_required": expected_action in {"send", "exploratory_send"},
         "decision_rationale": "Auto-converted from Week 10 workflow output; review before publication.",
         "expected_output": build_expected_output(expected_action, observed_output, record.get("company_name", "this company")),
     }
@@ -317,6 +394,15 @@ def convert_record(record: dict[str, Any], index: int) -> dict[str, Any]:
     task_type = infer_task_type(record)
     observed_action = infer_observed_action(record)
     expected_action = infer_action(record, failure_tags)
+    template_family_id = infer_template_family_id(record, expected_action, failure_tags, observed_action)
+    trace_cluster_id = infer_trace_cluster_id(
+        record,
+        task_type,
+        observed_action,
+        expected_action,
+        failure_tags,
+        template_family_id,
+    )
     evidence = build_evidence(record)
     conversion_confidence = infer_conversion_confidence(record, expected_action, observed_action)
 
@@ -324,7 +410,7 @@ def convert_record(record: dict[str, Any], index: int) -> dict[str, Any]:
         "task_id": f"tb_trace_{index:04d}",
         "split": "unsplit",
         "source_mode": "trace_derived",
-        "difficulty": "hard" if ("T-05" in failure_tags or "T-02" in failure_tags or expected_action != observed_action) else "medium",
+        "difficulty": "hard" if ("T-05" in failure_tags or "T-02" in failure_tags or expected_action != observed_action or expected_action == "review") else "medium",
         "task_type": task_type,
         "failure_mode_tags": failure_tags,
         "input": build_input(record, evidence),
@@ -341,8 +427,11 @@ def convert_record(record: dict[str, Any], index: int) -> dict[str, Any]:
         "metadata": {
             "version": "0.3",
             "trace_id": record.get("trace_id", ""),
+            "original_trace_id": record.get("trace_id", ""),
             "source_notes": "Auto-converted from Week 10 workflow output.",
             "family_id": infer_family_id(record, task_type, observed_action, expected_action, failure_tags),
+            "template_family_id": template_family_id,
+            "trace_cluster_id": trace_cluster_id,
             "conversion_confidence": conversion_confidence,
             "authoring_revision": "trace_conversion_v3",
             "tags": [slugify(record.get("company_name", "")), expected_action, task_type],
@@ -352,12 +441,18 @@ def convert_record(record: dict[str, Any], index: int) -> dict[str, Any]:
 
 def summarize(tasks: list[dict[str, Any]]) -> dict[str, Any]:
     family_counts: dict[str, int] = {}
+    template_family_counts: dict[str, int] = {}
+    trace_cluster_counts: dict[str, int] = {}
     tag_counts: dict[str, int] = {}
     action_counts: dict[str, int] = {}
 
     for task in tasks:
         family_id = task["metadata"]["family_id"]
         family_counts[family_id] = family_counts.get(family_id, 0) + 1
+        template_family_id = task["metadata"].get("template_family_id", "unknown_template_family")
+        template_family_counts[template_family_id] = template_family_counts.get(template_family_id, 0) + 1
+        trace_cluster_id = task["metadata"].get("trace_cluster_id", "unknown_trace_cluster")
+        trace_cluster_counts[trace_cluster_id] = trace_cluster_counts.get(trace_cluster_id, 0) + 1
         action = task["expected_behavior"]["action"]
         action_counts[action] = action_counts.get(action, 0) + 1
         for tag in task["failure_mode_tags"]:
@@ -365,7 +460,14 @@ def summarize(tasks: list[dict[str, Any]]) -> dict[str, Any]:
 
     return {
         "task_count": len(tasks),
-        "families": dict(sorted(family_counts.items())),
+        "grouping_fields": {
+            "detailed_family_field": "family_id",
+            "template_family_field": "template_family_id",
+            "split_family_field": "trace_cluster_id",
+        },
+        "detailed_family_count": len(family_counts),
+        "template_families": dict(sorted(template_family_counts.items())),
+        "trace_clusters": dict(sorted(trace_cluster_counts.items())),
         "failure_tag_counts": dict(sorted(tag_counts.items())),
         "actions": dict(sorted(action_counts.items())),
     }
