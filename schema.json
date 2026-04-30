@@ -146,6 +146,9 @@
         "version": { "type": "string" },
         "source_notes": { "type": "string" },
         "family_id": { "type": "string" },
+        "template_family_id": { "type": "string" },
+        "trace_cluster_id": { "type": "string" },
+        "original_trace_id": { "type": "string" },
         "conversion_confidence": {
           "type": "string",
           "enum": ["high", "medium", "low"]
