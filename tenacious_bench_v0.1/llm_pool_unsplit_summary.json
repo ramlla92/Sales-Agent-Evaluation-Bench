@@ -1,0 +1,111 @@
+{
+    "task_count":  50,
+    "grouping_fields":  {
+                            "split_family_field":  "template_family_id"
+                        },
+    "planned_coverage":  {
+                             "engagement_type":  {
+                                                     "discovery_call":  10,
+                                                     "follow_up":  14,
+                                                     "objection_handling":  6,
+                                                     "outreach":  20
+                                                 },
+                             "action":  {
+                                            "abstain":  8,
+                                            "exploratory_send":  16,
+                                            "review":  10,
+                                            "send":  16
+                                        },
+                             "difficulty":  {
+                                                "easy":  6,
+                                                "hard":  22,
+                                                "medium":  22
+                                            },
+                             "failure_mode_tags":  {
+                                                       "T-01":  25,
+                                                       "T-02":  15,
+                                                       "T-03":  10,
+                                                       "T-04":  14,
+                                                       "T-05":  12,
+                                                       "T-06":  8,
+                                                       "T-07":  8,
+                                                       "T-08":  3,
+                                                       "T-09":  5
+                                                   },
+                             "template_family_id":  {
+                                                        "abstain_context_mismatch":  3,
+                                                        "abstain_missing_evidence":  2,
+                                                        "abstain_schema_fault_review":  3,
+                                                        "discovery_call_grounded_send":  3,
+                                                        "exploratory_ai_hint":  3,
+                                                        "exploratory_ops_strain":  3,
+                                                        "exploratory_sparse_signal":  3,
+                                                        "objection_budget_pressure":  3,
+                                                        "objection_discovery_followup":  2,
+                                                        "outreach_context_repair":  2,
+                                                        "review_bench_unknown":  2,
+                                                        "review_competitor_gap_unknown":  4,
+                                                        "review_schema_fault":  2,
+                                                        "review_signal_conflict":  2,
+                                                        "send_grounded_but_generic":  4,
+                                                        "send_hiring_spike_grounded":  3,
+                                                        "send_market_entry_specific":  3,
+                                                        "send_overblock_risk_clear":  3
+                                                    }
+                         },
+    "actual_coverage":  {
+                            "engagement_type":  {
+                                                    "discovery_call":  10,
+                                                    "follow_up":  14,
+                                                    "objection_handling":  6,
+                                                    "outreach":  20
+                                                },
+                            "action":  {
+                                           "abstain":  8,
+                                           "exploratory_send":  16,
+                                           "review":  10,
+                                           "send":  16
+                                       },
+                            "difficulty":  {
+                                               "easy":  6,
+                                               "hard":  22,
+                                               "medium":  22
+                                           },
+                            "failure_mode_tags":  {
+                                                      "T-01":  25,
+                                                      "T-02":  15,
+                                                      "T-03":  10,
+                                                      "T-04":  14,
+                                                      "T-05":  12,
+                                                      "T-06":  8,
+                                                      "T-07":  8,
+                                                      "T-08":  3,
+                                                      "T-09":  5
+                                                  },
+                            "template_family_id":  {
+                                                       "abstain_context_mismatch":  3,
+                                                       "abstain_missing_evidence":  2,
+                                                       "abstain_schema_fault_review":  3,
+                                                       "discovery_call_grounded_send":  3,
+                                                       "exploratory_ai_hint":  3,
+                                                       "exploratory_ops_strain":  3,
+                                                       "exploratory_sparse_signal":  3,
+                                                       "objection_budget_pressure":  3,
+                                                       "objection_discovery_followup":  2,
+                                                       "outreach_context_repair":  2,
+                                                       "review_bench_unknown":  2,
+                                                       "review_competitor_gap_unknown":  4,
+                                                       "review_schema_fault":  2,
+                                                       "review_signal_conflict":  2,
+                                                       "send_grounded_but_generic":  4,
+                                                       "send_hiring_spike_grounded":  3,
+                                                       "send_market_entry_specific":  3,
+                                                       "send_overblock_risk_clear":  3
+                                                   }
+                        },
+    "generation_models":  {
+                              "deepseek/deepseek-chat":  18,
+                              "openai/gpt-4.1-mini":  17,
+                              "openai/gpt-4.1-nano":  15
+                          }
+}
