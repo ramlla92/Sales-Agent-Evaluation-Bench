@@ -1,0 +1,39 @@
+{
+  "dataset": "tenacious_bench_v0.1/final_dataset/tenacious_bench_all_sources_unsplit_200.jsonl",
+  "status": "PASS",
+  "validation_command": "python validate_contamination.py contamination_check.json",
+  "split_counts": {
+    "train": 100,
+    "dev": 60,
+    "held_out": 40
+  },
+  "source_mode_counts": {
+    "manual": 30,
+    "multi_llm_synthesis": 50,
+    "programmatic": 60,
+    "trace_derived": 60
+  },
+  "thresholds": {
+    "exact_cross_split_duplicates": 0,
+    "family_group_leakage": 0,
+    "max_shared_8gram_count": 0,
+    "lexical_cosine_max": 0.85,
+    "token_jaccard_max": 0.75
+  },
+  "results": {
+    "required_splits_present": true,
+    "exact_cross_split_duplicates": 0,
+    "family_group_leakage": 0,
+    "held_out_vs_train_dev_8gram_pass": true,
+    "dev_vs_train_8gram_pass": true,
+    "held_out_vs_train_dev_lexical_pass": true,
+    "dev_vs_train_lexical_pass": true,
+    "held_out_vs_train_dev_jaccard_pass": true,
+    "dev_vs_train_jaccard_pass": true,
+    "held_out_max_lexical_cosine": 0.657,
+    "dev_max_lexical_cosine": 0.6385,
+    "held_out_max_token_jaccard": 0.413,
+    "dev_max_token_jaccard": 0.3277,
+    "overall_pass": true
+  }
+}

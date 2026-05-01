@@ -1,18 +1,16 @@
 {
-  "summary": {
-    "train_count": 4,
-    "held_out_count": 1,
-    "note": "Embedding similarity is a bag-of-words placeholder. Replace with a real embedding model later."
+  "dataset_path": "tenacious_bench_v0.1/final_dataset/tenacious_bench_all_sources_unsplit_200.jsonl",
+  "output_report_path": "contamination_report.json",
+  "thresholds": {
+    "lexical_cosine_max": 0.85,
+    "token_jaccard_max": 0.75,
+    "max_shared_8gram_count": 0
   },
-  "findings": [
-    {
-      "held_out_task_id": "task_adversarial_001",
-      "closest_train_task_id": "task_programmatic_002",
-      "max_8gram_overlap": 0,
-      "embedding_similarity_placeholder": 0.3245,
-      "passes_ngram_rule": true,
-      "passes_embedding_rule": true,
-      "time_shift_verified": false
-    }
-  ]
+  "grouping": {
+    "manual": ["family", "failure_mode"],
+    "multi_llm_synthesis": ["metadata.template_family_id"],
+    "programmatic": ["metadata.template_family_id"],
+    "trace_derived": ["metadata.trace_cluster_id"]
+  },
+  "required_splits": ["train", "dev", "held_out"]
 }
