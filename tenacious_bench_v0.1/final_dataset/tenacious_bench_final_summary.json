@@ -1,0 +1,26 @@
+{
+  "dataset": "tenacious_bench_final_200",
+  "row_count": 200,
+  "split_counts": {
+    "train": 100,
+    "dev": 60,
+    "held_out": 40
+  },
+  "source_mode_counts": {
+    "manual": 30,
+    "multi_llm_synthesis": 50,
+    "programmatic": 60,
+    "trace_derived": 60
+  },
+  "task_type_counts": {
+    "abstain_decision": 86,
+    "generate_outreach": 105,
+    "reply_to_objection": 9
+  },
+  "action_counts": {
+    "abstain": 55,
+    "send": 48,
+    "exploratory_send": 63,
+    "review": 34
+  }
+}
