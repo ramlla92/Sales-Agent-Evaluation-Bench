@@ -35,10 +35,14 @@ ENV/
 
 # Project Specific
 tenacious_bench_v0.1/held_out/
-held_out_traces.jsonl
-ablation_results.json
 *.log
 .DS_Store
+Week11_saved_runs/
+training/outputs/
+training/.cache/
+*.safetensors
+*.bin
+*.pt
 
 # IDEs
 .vscode/
@@ -51,3 +55,4 @@ ablation_results.json
 
 docs/
 week_10_artifacts/
+.hf/

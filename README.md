@@ -11,20 +11,22 @@ Tenacious-Bench v0.1 is a custom benchmark for evaluating a Tenacious-style B2B 
 
 ## Current Status
 
-Target benchmark size:
+Final benchmark size:
 
 - `200` total tasks
 
-Built so far:
+Final composition:
 
 - `60` trace-derived tasks
 - `60` programmatic tasks
-- `120` total tasks currently authored
+- `50` multi-LLM synthesis tasks
+- `30` manual tasks
 
-Still pending:
+Final split:
 
-- multi-LLM synthesis slice
-- hand-authored adversarial slice
+- `train`: `100`
+- `dev`: `60`
+- `held_out`: `40`
 
 ## Repository Structure
 
@@ -41,12 +43,15 @@ Generation pipeline:
 
 Documentation:
 
-- `methodology.md`
-- `audit_memo.md`
-- `datasheet.md`
-- `docs/implementation_plan.md`
-- `docs/progress.md`
-- `cost_log.csv`
+- `methodology.md`: Path B rationale and contamination protocol
+- `audit_memo.md`: Audit of Week 10 failure modes
+- `datasheet.md`: Dataset documentation (Gebru/Pushkarna standard)
+- `dataset_card.md`: Hugging Face dataset card
+- `model_card.md`: Hugging Face model card (negative results)
+- `blog_post.md`: Technical retrospective and "honest failure" analysis
+- `memo.md`: Two-page executive decision memo for stakeholders
+- `evidence_graph.json`: Traceability for all numeric claims
+- `cost_log.csv`: Detailed spend tracking
 
 Dataset artifacts:
 
@@ -157,10 +162,56 @@ Assign family-based trace splits:
 python generation_scripts/assign_family_splits.py
 ```
 
-## What Comes Next
+## Final Artifacts
 
-- build the adversarial/manual slice
-- build the multi-LLM synthesis slice
-- run contamination checks across all source modes together
-- finalize global `train/dev/held_out` composition for the full `200`-task benchmark
-- prepare preference pairs for critic training
+Dataset:
+
+- `tenacious_bench_v0.1/final_dataset/train/tenacious_bench_train_all_sources_100.jsonl`
+- `tenacious_bench_v0.1/final_dataset/dev/tenacious_bench_dev_all_sources_60.jsonl`
+- `tenacious_bench_v0.1/final_dataset/held_out/tenacious_bench_held_out_all_sources_40.jsonl`
+- `tenacious_bench_v0.1/final_dataset/tenacious_bench_final_summary.json`
+
+Preference tuning:
+
+- `training_data/path_b_train_preferences.jsonl`
+- `training_data/path_b_dev_preferences.jsonl`
+- `training/run_path_b_orpo.py`
+- `training/run_path_b_benchmark_eval.py`
+
+Ablations:
+
+- `ablations/week10_baseline_eval_held_out.json`
+- `ablations/week10_prompt_adjusted_eval_held_out.json`
+- `ablations/path_b_orpo_full_v3_eval_held_out.json`
+- `ablations/ablation_results.json`
+
+## Outcome
+
+The final Path B ORPO run is a negative result on the corrected evaluator:
+
+- baseline held-out: `2.923`
+- prompt-adjusted held-out: `2.878`
+- trained Path B held-out: `2.614`
+
+Recommendation:
+
+- **Do not deploy** the trained component in its current form.
+- Stay on the prompt-engineered baseline while investigating dataset quality regressions.
+
+## What I Did Wrong & Lessons Learned
+
+- **Dataset Diversity Flaw:** The preference pairs were too heavily weighted toward "hiring signal" failures, causing the model to learn a rigid (and incorrect) "job post" template rather than nuanced sales grounding.
+- **Judge Filter Lenience:** The automated judge-filter used during dataset authoring was too lenient on speaker-perspective shifts, allowing "good-sounding" but context-incorrect messages into the training set.
+- **Backbone Constraints:** A 1.5B backbone may be too small to reliably unlearn strong pre-training priors like "hiring = job post" without a significantly larger and more diverse dataset.
+
+## Future Work
+
+- **Contrastive Grounding:** Revise v0.2 to include explicit "contrastive" examples where the model is rewarded for ignoring a signal that would lead to a template regression.
+- **Process Reward Modeling (Path C):** Investigate if a stepwise process scorer can catch the "job post" regression earlier in the generation chain than a final-turn critic.
+- **Ensemble Rejection Sampling:** Deploy a committee of small specialized judges to increase robustness against single-model preference bias.
+
+## Next Steps
+
+1. Finalize Hugging Face publication (Dataset and Model LoRA).
+2. Distribute the Technical Blog Post to the community.
+3. Submit the GitHub repository and Executive Memo for the final Act V Audit.

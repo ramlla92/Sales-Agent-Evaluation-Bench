@@ -1,0 +1,53 @@
+{
+  "train": {
+    "split": "train",
+    "row_count": 100,
+    "source_mode_counts": {
+      "manual": 15,
+      "multi_llm_synthesis": 25,
+      "programmatic": 30,
+      "trace_derived": 30
+    },
+    "expected_action_counts": {
+      "abstain": 33,
+      "send": 32,
+      "exploratory_send": 23,
+      "review": 12
+    },
+    "failure_mode_tag_counts": {
+      "T-01": 48,
+      "T-02": 58,
+      "T-03": 25,
+      "T-04": 39,
+      "T-05": 27,
+      "T-06": 10,
+      "T-08": 3,
+      "T-07": 9
+    }
+  },
+  "dev": {
+    "split": "dev",
+    "row_count": 60,
+    "source_mode_counts": {
+      "manual": 9,
+      "multi_llm_synthesis": 13,
+      "programmatic": 20,
+      "trace_derived": 18
+    },
+    "expected_action_counts": {
+      "send": 11,
+      "abstain": 9,
+      "review": 13,
+      "exploratory_send": 27
+    },
+    "failure_mode_tag_counts": {
+      "T-04": 23,
+      "T-03": 20,
+      "T-02": 34,
+      "T-05": 34,
+      "T-01": 19,
+      "T-06": 8,
+      "T-07": 2
+    }
+  }
+}
