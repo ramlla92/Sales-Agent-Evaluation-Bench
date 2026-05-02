@@ -1,6 +1,57 @@
 {
   "version": "0.1",
-  "claims": [],
-  "sources": [],
-  "edges": []
+  "claims": [
+    {
+      "id": "claim_001",
+      "text": "Baseline held-out score is 2.923",
+      "value": 2.923,
+      "source_id": "src_baseline_eval"
+    },
+    {
+      "id": "claim_002",
+      "text": "Prompt-adjusted held-out score is 2.878",
+      "value": 2.878,
+      "source_id": "src_prompt_adjusted_eval"
+    },
+    {
+      "id": "claim_003",
+      "text": "Trained path-b-orpo-full-v3 held-out score is 2.614",
+      "value": 2.614,
+      "source_id": "src_trained_eval"
+    },
+    {
+      "id": "claim_004",
+      "text": "Trained minus baseline delta is -0.309",
+      "value": -0.309,
+      "source_id": "src_ablation_summary"
+    }
+  ],
+  "sources": [
+    {
+      "id": "src_baseline_eval",
+      "file": "ablations/week10_baseline_eval_held_out.json",
+      "type": "eval_result"
+    },
+    {
+      "id": "src_prompt_adjusted_eval",
+      "file": "ablations/week10_prompt_adjusted_eval_held_out.json",
+      "type": "eval_result"
+    },
+    {
+      "id": "src_trained_eval",
+      "file": "ablations/path_b_orpo_full_v3_eval_held_out.json",
+      "type": "eval_result"
+    },
+    {
+      "id": "src_ablation_summary",
+      "file": "ablations/ablation_results.json",
+      "type": "summary_json"
+    }
+  ],
+  "edges": [
+    { "from": "src_baseline_eval", "to": "claim_001" },
+    { "from": "src_prompt_adjusted_eval", "to": "claim_002" },
+    { "from": "src_trained_eval", "to": "claim_003" },
+    { "from": "src_ablation_summary", "to": "claim_004" }
+  ]
 }

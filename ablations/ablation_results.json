@@ -1,0 +1,33 @@
+{
+  "held_out_dataset": "tenacious_bench_v0.1/final_dataset/held_out/tenacious_bench_held_out_all_sources_40.jsonl",
+  "comparisons": [
+    {
+      "name": "week10_baseline",
+      "task_count": 40,
+      "avg_overall_score": 2.923,
+      "avg_cost_usd_per_task": 0.00425
+    },
+    {
+      "name": "week10_prompt_adjusted",
+      "task_count": 40,
+      "avg_overall_score": 2.878,
+      "avg_cost_usd_per_task": 0.00425
+    },
+    {
+      "name": "path_b_orpo_full_v3",
+      "task_count": 40,
+      "avg_overall_score": 2.614,
+      "avg_cost_usd_per_task": 0.0
+    }
+  ],
+  "headline_deltas": {
+    "trained_minus_baseline": -0.309,
+    "trained_minus_prompt_adjusted": -0.264
+  },
+  "production_recommendation": "do_not_deploy",
+  "notes": [
+    "Corrected evaluator removes prompt leakage from candidate_text extraction.",
+    "Negative result: the trained component underperforms both prompt-only baselines on held-out.",
+    "Primary failure modes are weak signal grounding, poor Tenacious tone adherence, and speaker-perspective regression."
+  ]
+}

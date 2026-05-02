@@ -1,0 +1,1516 @@
+{
+  "summary": {
+    "dataset_path": "tenacious_bench_v0.1\\final_dataset\\dev\\tenacious_bench_dev_all_sources_60.jsonl",
+    "task_count": 60,
+    "avg_overall_score": 2.633,
+    "route_counts": {
+      "review": 12,
+      "direct": 18,
+      "exploratory": 30
+    },
+    "by_source_mode": {
+      "manual": {
+        "count": 9,
+        "avg_overall_score": 2.194
+      },
+      "multi_llm_synthesis": {
+        "count": 13,
+        "avg_overall_score": 2.854
+      },
+      "programmatic": {
+        "count": 20,
+        "avg_overall_score": 3.035
+      },
+      "trace_derived": {
+        "count": 18,
+        "avg_overall_score": 2.247
+      }
+    },
+    "by_expected_action": {
+      "abstain": {
+        "count": 9,
+        "avg_overall_score": 2.95
+      },
+      "exploratory_send": {
+        "count": 27,
+        "avg_overall_score": 2.315
+      },
+      "review": {
+        "count": 13,
+        "avg_overall_score": 2.95
+      },
+      "send": {
+        "count": 11,
+        "avg_overall_score": 2.782
+      }
+    },
+    "timestamp_utc": "2026-05-01T23:15:59.188090+00:00"
+  },
+  "results": [
+    {
+      "task_id": "tb_manual_0016",
+      "source_mode": "manual",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "review",
+      "overall_score": 1.45,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 0
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_manual_0017",
+      "source_mode": "manual",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "review",
+      "overall_score": 1.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 0
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_manual_0018",
+      "source_mode": "manual",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "review",
+      "overall_score": 1.45,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 0
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_manual_0019",
+      "source_mode": "manual",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "direct",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_manual_0020",
+      "source_mode": "manual",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "direct",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_manual_0021",
+      "source_mode": "manual",
+      "difficulty": "medium",
+      "expected_action": "exploratory_send",
+      "predicted_route": "review",
+      "overall_score": 1.45,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 0
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_manual_0022",
+      "source_mode": "manual",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "direct",
+      "overall_score": 3.05,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 3,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: DataFlow hiring signal",
+      "body": "Subject: Question: Scaling AI workflows at DataFlow?  \n\nHi there,  \nI noticed many teams struggle with scaling AI workflows as they grow. How is DataFlow addressing these challenges? Happy to share how Tenacious helps companies navigate this\u2014would a 15-minute chat be useful?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_manual_0024",
+      "source_mode": "manual",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "review",
+      "overall_score": 1.45,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 0
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_manual_0028",
+      "source_mode": "manual",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "direct",
+      "overall_score": 3.05,
+      "component_scores": {
+        "signal_grounding": 3,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 3,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: EdgeCompute hiring signal",
+      "body": "Subject: Question: Scaling challenges for SREs?  \n\nHi there,  \n\nNoticed EdgeCompute is hiring SREs\u2014great to see growth. As teams scale, infrastructure challenges often emerge unexpectedly. How are you currently managing scaling complexities?  \n\nWould you be open to a 15-minute chat? No pressure, just curious how you're approaching this.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_llm_0007",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "direct",
+      "overall_score": 2.75,
+      "component_scores": {
+        "signal_grounding": 3,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: GreenWave Analytics hiring signal",
+      "body": "Subject: Question: Scaling challenges?  \n\nHi there,  \n\nI noticed GreenWave Analytics' work in data analytics. How are you currently addressing scaling challenges as you grow?  \n\nIf you\u2019re open to a quick chat about potential growth blockers, I\u2019d love to hear your perspective.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_llm_0008",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "direct",
+      "overall_score": 3.25,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: GreenPath Logistics hiring signal",
+      "body": "Subject: Context: Optimizing AI ops in logistics  \n\nHi there,  \n\nI noticed your team\u2019s AI operational signals in logistics. At Tenacious, we help companies like GreenPath refine AI workflows to boost efficiency without overhauling systems\u2014no hype, just practical peer-backed optimizations.  \n\nOpen to a 15-minute chat next week?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_llm_0010",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "medium",
+      "expected_action": "review",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_llm_0012",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "direct",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_llm_0015",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "medium",
+      "expected_action": "review",
+      "predicted_route": "direct",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_llm_0025",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.15,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 3,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 2
+      },
+      "subject": "Question: GreenLeaf Analytics hiring context",
+      "body": "Subject: Question: Scaling analytics challenges?  \n\nHi there,  \n\nScaling analytics often brings unexpected complexity. How are you navigating this today?  \n\nWould appreciate 15 mins to hear your approach.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_llm_0026",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "medium",
+      "expected_action": "exploratory_send",
+      "predicted_route": "direct",
+      "overall_score": 3.25,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: FlowTrek hiring signal",
+      "body": "Subject: Context: Optimizing AI ops for your team?  \n\nHi there,  \n\nYour team\u2019s recent AI-driven customer support system shows strong operational signals. At FlowTrek, we help companies like yours optimize AI workflows without disruption\u2014no hype, just proven efficiency gains.  \n\nOpen to a 15-minute chat next week to explore how we might support your goals?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_llm_0028",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_llm_0038",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "direct",
+      "overall_score": 2.0,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: GreenLeaf Technologies hiring signal",
+      "body": "Subject: Question about scaling challenges?  \n\nHi there,  \nI came across GreenLeaf Technologies. How are you currently navigating scaling challenges as you grow? Happy to share how Tenacious has helped similar companies. Open to a quick chat if useful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_llm_0039",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "direct",
+      "overall_score": 3.05,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 3,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: Vistara Analytics hiring signal",
+      "body": "Subject: Question: AI ops scaling?  \n\nHi there,  \n\nSeeing your team's AI deployments, we wonder if scaling operations is a focus. Vistara helps optimize workflows for companies at your maturity level.  \n\nOpen to a 15-min chat?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_llm_0040",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "medium",
+      "expected_action": "review",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_llm_0042",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "direct",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_llm_0045",
+      "source_mode": "multi_llm_synthesis",
+      "difficulty": "medium",
+      "expected_action": "review",
+      "predicted_route": "direct",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0001",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "direct",
+      "overall_score": 3.5,
+      "component_scores": {
+        "signal_grounding": 3,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: Aster Cloud hiring signal",
+      "body": "Subject: Context: AI ops signals  \n\nHi there,  \nNoticing your team's proven AI operational signals. At Tenacious, we help companies like Aster Cloud optimize AI ops for advanced use cases without overcomplicating things. Would you be open to a quick chat to explore how we might support your goals?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0006",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 3.05,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 3,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Aster Cloud hiring context",
+      "body": "Subject: Question: Scaling challenges at Aster Cloud?  \n\nHi there,  \n\nI noticed Aster Cloud\u2019s focus on cloud infrastructure. As you scale, I\u2019m curious how you\u2019re addressing infrastructure complexity and growth blockers today.  \n\nWould you be open to a 15-minute chat to share how others have navigated similar challenges?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0009",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "review",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0012",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0013",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "direct",
+      "overall_score": 4.0,
+      "component_scores": {
+        "signal_grounding": 3,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: Granite Freight hiring signal",
+      "body": "Subject: Context: AI ops optimization  \n\nHi John Doe,  \n\nYour team\u2019s AI initiatives show strong maturity. At Tenacious, we help freight companies optimize AI operations for efficiency. Open to a 15-minute chat next week to explore how we might support your goals?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0018",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.75,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Granite Freight hiring context",
+      "body": "Subject: Question: Scaling challenges in freight?  \n\nHi there,  \nNoticing Granite Freight\u2019s role in freight logistics. How are you addressing scaling challenges as operations grow? Happy to share how Tenacious helps similar companies navigate these hurdles. Open to a quick chat if useful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0021",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "review",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0024",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0025",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "direct",
+      "overall_score": 4.0,
+      "component_scores": {
+        "signal_grounding": 3,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: Northwind Health hiring signal",
+      "body": "Subject: Context: AI ops optimization?  \n\nHi there,  \n\nSaw your team\u2019s AI work in healthcare operations. At Tenacious, we help companies like Northwind optimize AI operations for better outcomes\u2014no hype, just practical support.  \n\nOpen to a 15-minute chat next week?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0030",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.3,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 3,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Northwind Health hiring context",
+      "body": "Subject: Question: Scaling telehealth challenges?  \n\nHi John Doe,  \nI noticed Northwind\u2019s recent telehealth expansion. With AI maturity 1, how are you addressing scaling blockers like data integration? Open to a quick 15-minute chat to explore potential synergies?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0033",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "review",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0036",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0037",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "direct",
+      "overall_score": 3.2,
+      "component_scores": {
+        "signal_grounding": 3,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: Lattice Works hiring signal",
+      "body": "Subject: Context: AI ops optimization?  \n\nHi John Doe,  \n\nSaw your team\u2019s AI operational signals. At Lattice Works, we help optimize AI workflows for efficiency\u2014no hard sells, just a quick chat to see if there\u2019s a fit.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0042",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.75,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Lattice Works hiring context",
+      "body": "Subject: Question: Scaling challenges?  \n\nHi there,  \n\nI noticed your team's focus on scaling challenges\u2014how are you addressing growth blockers? Happy to share how Lattice Works has helped similar companies navigate these. Open to a quick chat if useful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0045",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "review",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0048",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0049",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "send",
+      "predicted_route": "direct",
+      "overall_score": 3.5,
+      "component_scores": {
+        "signal_grounding": 3,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Context: Crestline Capital hiring signal",
+      "body": "Subject: Question: AI ops optimization?  \n\nHi there,  \nCurious how your team is optimizing AI ops today. We\u2019ve helped similar companies streamline operations. Open to a 10-min chat?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Competitor gap evidence limited (will use generic messaging)."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0054",
+      "source_mode": "programmatic",
+      "difficulty": "medium",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.15,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 2
+      },
+      "subject": "Question: Crestline Capital hiring context",
+      "body": "Subject: Question: Scaling challenges at Crestline?  \n\nHi there,  \n\nI noticed your recent focus on scaling operations. How are you addressing growth blockers as you expand?  \n\nHappy to share how Tenacious has helped similar firms navigate these challenges\u2014no pressure, just curious.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_prog_0057",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "review",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_prog_0060",
+      "source_mode": "programmatic",
+      "difficulty": "hard",
+      "expected_action": "review",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Manual review required before drafting outreach from this evidence.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_trace_0004",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 1.7,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: nokyooz hiring context",
+      "body": "Subject: Question: Scaling challenges?  \n\nHi there, scaling challenges often emerge as companies grow. How are you addressing them today? Happy to share how Tenacious has helped similar teams navigate these hurdles. Open to a quick chat if useful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0006",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 1.4,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 2
+      },
+      "subject": "Question: Delamode hiring context",
+      "body": "Subject: Question: Scaling challenges for Delamode?  \n\nHi there,  \n\nI\u2019ve noticed Delamode\u2019s focus on AI solutions as you scale. Many companies face challenges balancing innovation with operational stability during growth phases.  \n\nCould you share how you\u2019re currently addressing scaling hurdles in your AI initiatives?  \n\nHappy to explore if Tenacious could support your next phase.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0007",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.0,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Airtouch hiring context",
+      "body": "Subject: Question: Scaling challenges?  \n\nHi John Doe,  \n\nI noticed your recent focus on scaling infrastructure. How are you approaching these challenges as you grow?  \n\nWould you be open to a quick chat to explore how others are tackling similar hurdles?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0008",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.15,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 2
+      },
+      "subject": "Question: MyVocal hiring context",
+      "body": "Subject: Question: Scaling AI challenges?  \n\nHi John Doe,  \nI noticed MyVocal\u2019s work in AI. As companies scale, many balance innovation with reliability. Could you share how your team is currently addressing scaling hurdles? Happy to exchange insights over a quick call if helpful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0009",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 1.7,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 0,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 0,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Ministry of Economic Affairs (Innovation Credit) hiring context",
+      "body": "Subject:Question: Scaling challenges for Innovation Credit?  \n\nHi John Doe,  \n\nYour Innovation Credit program supports SME scaling efforts. How are you currently addressing scaling challenges for participants?  \n\nWould you be open to a 15-minute chat next week to explore potential synergies?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0012",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 1.7,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Misen Energy AB hiring context",
+      "body": "Subject: Question: Scaling challenges in energy?  \n\nHi there,  \n\nNoticing Misen Energy\u2019s presence in Sweden\u2019s energy market. How are you currently addressing scaling challenges as you grow?  \n\nI\u2019d appreciate a quick chat to learn more\u2014no obligation, just curious.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0013",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.75,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Grafes LP hiring context",
+      "body": "Subject: Question: Scaling AI challenges?  \n\nHi there,  \n\nI noticed Grafes LP's focus on AI solutions. As you scale, what\u2019s the biggest growth blocker you\u2019re facing with AI? Happy to share how Tenacious has helped similar companies navigate these challenges. Open to a quick chat if useful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0015",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 1.4,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 2
+      },
+      "subject": "Question: MaxMedia hiring context",
+      "body": "Subject: Question about scaling challenges?  \n\nHi there,  \n\nI noticed MaxMedia\u2019s presence in the media industry. As companies scale, balancing growth with operational efficiency often becomes a key challenge.  \n\nHow is your team currently approaching scaling infrastructure needs?  \n\nHappy to share how we\u2019ve helped similar teams navigate this\u2014no obligation, just curious to learn.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0016",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.2,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Ciwen Media hiring context",
+      "body": "Subject: Question: Scaling media challenges?  \n\nHi there,  \n\nNoticing Ciwen Media\u2019s presence in the media space, I\u2019d love to hear how you\u2019re navigating scaling challenges as you grow.  \n\nWould you be open to a 15-minute chat next week to share observations?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0017",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 3.25,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Fairwinds hiring context",
+      "body": "Subject: Question: Scaling AI challenges?  \n\nHi John Doe,  \n\nI noticed many teams in your space are scaling AI initiatives. Curious how Fairwinds is navigating these challenges. Would you be open to a quick 15-minute chat next week?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0019",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.0,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Financial Planning Association hiring context",
+      "body": "Subject: Question: Scaling challenges for FPA?  \n\nHi there,  \n\nI noticed your organization\u2019s public resources on financial planning. How are you currently addressing scaling challenges as your member base grows? Happy to share how Tenacious has helped similar associations\u2014no obligation, just a quick chat if helpful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0020",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.0,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: TripKick hiring context",
+      "body": "Subject: Question: Scaling challenges in travel tech?  \n\nHi there,  \n\nNoticing your work in travel tech. Curious how you're navigating scaling challenges as you grow?  \n\nIf you're open to it, I'd love to hear your perspective over a quick chat. No pressure\u2014just exploring how we might help.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0024",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "exploratory",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_trace_0025",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.3,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 3,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: Blockchain Investment Group hiring context",
+      "body": "Subject: Question: Scaling challenges in blockchain investments?  \n\nHi there,  \n\nSaw your recent work in blockchain investments. Curious how you're currently handling scaling challenges as your portfolio grows? Would love to hear your perspective on what's working and where you're seeing bottlenecks.  \n\nHappy to share a few observations if helpful. Open to a quick chat next week?  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0027",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "review",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_trace_0033",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "abstain",
+      "predicted_route": "review",
+      "overall_score": 2.95,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 1,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 5,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "",
+      "body": "Insufficient signal to send outreach safely. Route to manual review.",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 0 - not ready for outreach."
+      ],
+      "cost_usd": 0.0
+    },
+    {
+      "task_id": "tb_trace_0058",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 2.0,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 2,
+        "calendar_cta_presence": 0,
+        "hallucination_unsupported_claims": 2,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: American MediConnect hiring context",
+      "body": "Subject: Question: Scaling challenges in healthcare?  \n\nHi there,  \nI noticed healthcare companies often face scaling challenges as they grow. Would you be open to a quick chat about how American MediConnect is addressing these? Happy to share insights if helpful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    },
+    {
+      "task_id": "tb_trace_0059",
+      "source_mode": "trace_derived",
+      "difficulty": "hard",
+      "expected_action": "exploratory_send",
+      "predicted_route": "exploratory",
+      "overall_score": 3.05,
+      "component_scores": {
+        "signal_grounding": 0,
+        "tenacious_tone_style": 3,
+        "banned_phrases": 5,
+        "calendar_cta_presence": 3,
+        "hallucination_unsupported_claims": 5,
+        "segment_fit": 1,
+        "send_decision_confidence_match": 5
+      },
+      "subject": "Question: American Metal Roofs hiring context",
+      "body": "Subject: Question about scaling?  \n\nHi there,  \nI\u2019ve been following American Metal Roofs\u2019 work. How are you navigating growth-related challenges as you scale? Happy to share how Tenacious has supported similar companies\u2014no pressure, just curious. Open to a 15-min chat if useful.  \n\nBest,  \nRamlla  \nTenacious",
+      "guardrail_reasons": [
+        "Bench-to-brief mismatch noted (advisory only).",
+        "Competitor gap evidence limited (will use generic messaging).",
+        "AI maturity 1 - sending with exploratory/scaling focus."
+      ],
+      "cost_usd": 0.01
+    }
+  ]
+}
