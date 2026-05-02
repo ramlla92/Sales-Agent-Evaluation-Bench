@@ -15,19 +15,20 @@ The benchmark is designed around the Week 10 workflow failures, not as a general
 
 ## Current Build Status
 
-The full benchmark target is `200` tasks.
+The benchmark build is complete at `200` tasks.
 
-Implemented so far:
+Final source composition:
 
-- `60` trace-derived tasks in `trace_pool_unsplit.jsonl`
-- `60` programmatic tasks in `programmatic_pool_unsplit.jsonl`
+- `60` trace-derived tasks
+- `60` programmatic tasks
+- `50` multi-LLM synthesis tasks
+- `30` manual tasks
 
-Planned but not yet built:
+Final split:
 
-- multi-LLM synthesis slice
-- hand-authored adversarial slice
-
-So the current built pool is `120` tasks, with the remaining `80` still to be authored.
+- `train`: `100`
+- `dev`: `60`
+- `held_out`: `40`
 
 ## Task Format
 
@@ -165,11 +166,10 @@ The family-first rule is the main safeguard against pattern-learning contaminati
 
 ## Current Limitations
 
-- the benchmark is not complete yet; only `120/200` tasks are built
-- trace-derived coverage is currently concentrated in `abstain` and `exploratory_send`
-- the trace split is contamination-aware but still somewhat distributionally narrow
-- inter-rater agreement artifacts are not yet written
-- adversarial and multi-LLM slices are still pending
+- labels and rubrics are still proxies for a real Tenacious sales motion because they are derived from public-signal evidence
+- trace-derived coverage still carries distributional bias from Week 10 workflow behavior
+- held-out is useful for comparison but still small at `40` tasks
+- some subtle role-specific and long-thread behaviors are still under-covered
 
 ## Cost Log Status
 
@@ -177,13 +177,13 @@ The project tracks spend in `cost_log.csv`.
 
 Current logged cost:
 
-- `0.00 USD` recorded so far
+- synthesis and benchmarking costs are tracked in `cost_log.csv`
+- prompt-only held-out evaluation artifacts show approximately `$0.00425` per task in logged API cost
 
 Interpretation:
 
-- the current trace-derived and programmatic dataset work is now logged as explicit process entries with zero direct cost
-- no paid API or GPU usage has been recorded yet
-- future synthesis, judging, or training costs should be appended there as they occur
+- dataset synthesis and evaluation costs were partially logged during development
+- training and local GPU serving overhead should be interpreted separately from prompt-only API cost
 
 ## Repository Artifacts
 
